@@ -3,7 +3,7 @@ package br.com.project.fiapfood.adapters.outbound;
 import br.com.project.fiapfood.adapters.inbound.mapper.ClientMapper;
 import br.com.project.fiapfood.adapters.outbound.repository.ClientRepository;
 import br.com.project.fiapfood.application.core.domain.Client;
-import br.com.project.fiapfood.application.core.domain.port.out.SaveClientPort;
+import br.com.project.fiapfood.application.port.out.SaveClientPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

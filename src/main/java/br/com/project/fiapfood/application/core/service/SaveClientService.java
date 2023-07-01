@@ -1,8 +1,8 @@
 package br.com.project.fiapfood.application.core.service;
 
 import br.com.project.fiapfood.application.core.domain.Client;
-import br.com.project.fiapfood.application.core.domain.port.in.SaveClientServicePort;
-import br.com.project.fiapfood.application.core.domain.port.out.SaveClientPort;
+import br.com.project.fiapfood.application.port.in.SaveClientServicePort;
+import br.com.project.fiapfood.application.port.out.SaveClientPort;
 import org.springframework.stereotype.Component;
 
 @Component

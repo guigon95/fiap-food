@@ -3,7 +3,7 @@ package br.com.project.fiapfood.adapters.inbound;
 import br.com.project.fiapfood.adapters.inbound.mapper.ClientMapper;
 import br.com.project.fiapfood.adapters.inbound.request.ClientRequest;
 import br.com.project.fiapfood.adapters.inbound.response.ClientResponse;
-import br.com.project.fiapfood.application.core.domain.port.in.SaveClientServicePort;
+import br.com.project.fiapfood.application.port.in.SaveClientServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
