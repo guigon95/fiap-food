@@ -1,9 +1,12 @@
 package br.com.project.fiapfood.adapters.inbound.request;
 
 import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,14 +18,18 @@ import java.math.BigDecimal;
 @Builder
 public class ProductRequest {
 
-    @NotEmpty
+    @NotEmpty(message = "The field name cannot be empty.")
     public String name;
-
+    @NotNull(message = "The field category cannot be empty.")
     @Enumerated(EnumType.STRING)
     public Category category;
-    @NotEmpty
+    @NotEmpty(message = "The field description cannot be empty.")
     public String description;
+    @Min(value = 0, message = "The field price cannot be less than 0.")
     public BigDecimal price;
-    @NotEmpty
+    @NotEmpty(message = "The field status images be empty.")
     public String images;
+    @NotNull(message = "The field status cannot be null.")
+    @Enumerated(EnumType.STRING)
+    public Status status;
 }
