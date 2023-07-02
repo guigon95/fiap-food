@@ -1,5 +1,6 @@
 package br.com.project.fiapfood.adapters.inbound.response;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,17 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
+
+    @ExceptionHandler(value = {EntityNotFoundException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage objectNotFoundException(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.NOT_FOUND,
+                LocalDateTime.now(),
+                "Object Not Found");
+
+        return message;
+    }
 
     @ExceptionHandler(value = {SQLException.class, DataIntegrityViolationException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
