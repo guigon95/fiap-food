@@ -1,6 +1,6 @@
 package br.com.project.fiapfood.adapters.inbound.response;
 
-import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.OrderStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -15,5 +15,5 @@ public class OrderResponse {
     public List<ItemOrderResponse> itemOrder;
 
     @Enumerated(EnumType.STRING)
-    public Status status;
+    public OrderStatus orderStatus;
 }

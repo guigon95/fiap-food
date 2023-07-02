@@ -1,7 +1,6 @@
 package br.com.project.fiapfood.adapters.inbound.request;
 
-import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
-import br.com.project.fiapfood.application.core.domain.ItemOrder;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.OrderStatus;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,5 +16,5 @@ public class OrderRequest {
     @NotEmpty
     private List<ItemOrderRequest> itemOrder;
 
-    private Status status;
+    private OrderStatus orderStatus;
 }

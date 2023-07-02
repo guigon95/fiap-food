@@ -1,6 +1,6 @@
 package br.com.project.fiapfood.application.core.domain;
 
-import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +17,5 @@ public class Order {
 
     private List<ItemOrder> itemOrder;
 
-    private Status status;
+    private OrderStatus orderStatus;
 }
