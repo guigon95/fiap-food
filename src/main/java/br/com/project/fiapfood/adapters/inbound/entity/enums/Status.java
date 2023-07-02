@@ -7,21 +7,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.util.List;
 
-public enum Category {
-    HAMBURGUER, ACCOMPANIMENT, DRINK, DESSERT;
+public enum Status {
+    ACTIVE, DESACTIVE;
 
     @JsonCreator
-    public static Category create(String value) {
+    public static Status create(String value) {
         if (value == null) {
             return null;
         }
-        for (Category v : values()) {
+        for (Status v : values()) {
             if (value.equals(v.name())) {
                 return v;
             }
         }
         throw InvalidFieldException.builder().message("The field status cannot have the value "+value).causeErrorList(List.of(
-                ErrorMessage.CauseError.builder().cause("Invalid value").field("category").build()
+                ErrorMessage.CauseError.builder().cause("Invalid value").field("status").build()
         )).build();
     }
 }
