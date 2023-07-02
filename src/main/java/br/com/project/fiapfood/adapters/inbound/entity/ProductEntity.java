@@ -2,6 +2,7 @@ package br.com.project.fiapfood.adapters.inbound.entity;
 
 
 import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +31,8 @@ public class ProductEntity {
     private String description;
     private BigDecimal price;
     private String images;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }

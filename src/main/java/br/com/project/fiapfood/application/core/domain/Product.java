@@ -1,8 +1,7 @@
 package br.com.project.fiapfood.application.core.domain;
 
 import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +18,5 @@ public class Product {
     private String description;
     private BigDecimal price;
     private String images;
+    private Status status;
 }
