@@ -32,9 +32,7 @@ public class ProductAdapter implements ProductPort {
 
     @Override
     public Product update(Product product) throws ChangeSetPersister.NotFoundException {
-        ProductEntity productOld = null;
-
-        productOld = productRepository.findById(product.getId()).
+        ProductEntity productOld = productRepository.findById(product.getId()).
                 orElseThrow(ChangeSetPersister.NotFoundException::new);
 
         productMapper.updateProductEntityFromProduct(product, productOld);
