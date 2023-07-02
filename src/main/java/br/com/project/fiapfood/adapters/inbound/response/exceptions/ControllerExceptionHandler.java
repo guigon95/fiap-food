@@ -3,6 +3,7 @@ package br.com.project.fiapfood.adapters.inbound.response.exceptions;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,6 +21,17 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
+
+    @ExceptionHandler(value = {ChangeSetPersister.NotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage notFoundException(ChangeSetPersister.NotFoundException ex, WebRequest request) {
+
+        return new ErrorMessage(
+                HttpStatus.NOT_FOUND,
+                LocalDateTime.now(),
+                ex.getMessage()
+        );
+    }
     @ExceptionHandler(value = {InvalidFieldException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage httpMessageNotReadableException(InvalidFieldException ex, WebRequest request) {

@@ -34,7 +34,6 @@ public class ProductAdapter implements ProductPort {
     public Product update(Product product) throws ChangeSetPersister.NotFoundException {
         ProductEntity productOld = productRepository.findById(product.getId()).
                 orElseThrow(ChangeSetPersister.NotFoundException::new);
-
         productMapper.updateProductEntityFromProduct(product, productOld);
         return productMapper.productEntityToProduct(productRepository.save(productOld));
 
