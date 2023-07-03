@@ -4,7 +4,6 @@ import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
 import br.com.project.fiapfood.application.core.domain.Product;
 import br.com.project.fiapfood.application.port.in.ProductServicePort;
 import br.com.project.fiapfood.application.port.out.ProductPort;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class ProductService implements ProductServicePort {
     }
 
     @Override
-    public Product updateProduct(Product product) throws ChangeSetPersister.NotFoundException {
+    public Product updateProduct(Product product){
         return this.productPort.update(product);
     }
 
