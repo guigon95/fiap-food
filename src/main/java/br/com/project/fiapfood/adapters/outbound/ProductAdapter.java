@@ -1,6 +1,7 @@
 package br.com.project.fiapfood.adapters.outbound;
 
 import br.com.project.fiapfood.adapters.inbound.entity.ProductEntity;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
 import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
 import br.com.project.fiapfood.adapters.inbound.mapper.ProductMapper;
 import br.com.project.fiapfood.adapters.outbound.repository.ProductRepository;
@@ -8,6 +9,7 @@ import br.com.project.fiapfood.application.core.domain.Product;
 import br.com.project.fiapfood.application.port.out.ProductPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -39,5 +41,10 @@ public class ProductAdapter implements ProductPort {
         productMapper.updateProductEntityFromProduct(product, productOld.get());
         return productMapper.productEntityToProduct(productRepository.save(productOld.get()));
 
+    }
+
+    @Override
+    public List<Product> getByCategory(Category category) {
+        return productMapper.productEntitiesToProducts(productRepository.findAllByCategory(category));
     }
 }

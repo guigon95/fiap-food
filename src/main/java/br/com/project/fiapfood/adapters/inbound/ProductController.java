@@ -1,5 +1,6 @@
 package br.com.project.fiapfood.adapters.inbound;
 
+import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
 import br.com.project.fiapfood.adapters.inbound.mapper.ProductMapper;
 import br.com.project.fiapfood.adapters.inbound.request.ProductRequest;
 import br.com.project.fiapfood.adapters.inbound.response.ProductResponse;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -81,6 +83,21 @@ public class ProductController {
         }
         return productMapper.productToProductResponse(updateProduct);
 
+    }
+
+    @GetMapping("/category/{category}")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Search all products by category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product get",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProductResponse.class)) }),
+            @ApiResponse(responseCode = "4xx", description = "Invalid data",
+                    content = @Content),
+            @ApiResponse(responseCode = "5xx", description = "Internal server error",
+                    content = @Content) })
+    public List<ProductResponse> getProducts(@PathVariable @Valid Category category)  {
+        return productMapper.productsToProductsResponse(productServicePort.getProductsByCategory(category));
     }
 
 }

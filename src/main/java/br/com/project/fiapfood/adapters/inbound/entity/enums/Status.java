@@ -16,7 +16,7 @@ public enum Status {
             return null;
         }
         for (Status v : values()) {
-            if (value.equals(v.name())) {
+            if (value.equalsIgnoreCase(v.name())) {
                 return v;
             }
         }
