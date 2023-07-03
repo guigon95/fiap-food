@@ -3,6 +3,9 @@ package br.com.project.fiapfood.adapters.inbound.response.exceptions;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Path;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -41,6 +44,25 @@ public class ControllerExceptionHandler {
                 ex.getMessage(),
                 Collections.singletonList(ex.getCauseErrorList())
         );
+    }
+
+    @ExceptionHandler(value = {ConstraintViolationException.class})
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage constraintViolationException(ConstraintViolationException ex, WebRequest request) {
+        List<ErrorMessage.CauseError> causes = new ArrayList<>();
+        for (ConstraintViolation constraint: ex.getConstraintViolations()) {
+            var listField = constraint.getPropertyPath().toString().split("\\.");
+            causes.add(ErrorMessage.CauseError.builder().cause(constraint.getMessage()).
+                    field(listField[listField.length-1]).build());
+        }
+
+        var message = new ErrorMessage(
+                HttpStatus.BAD_REQUEST,
+                LocalDateTime.now(),
+                "Invalid Fields"
+        );
+        message.setDetail(causes);
+        return message;
     }
 
     @ExceptionHandler(value = {HttpMessageNotReadableException.class})
