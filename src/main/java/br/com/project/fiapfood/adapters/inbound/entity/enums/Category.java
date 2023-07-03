@@ -16,7 +16,7 @@ public enum Category {
             return null;
         }
         for (Category v : values()) {
-            if (value.equals(v.name())) {
+            if (value.equalsIgnoreCase(v.name())) {
                 return v;
             }
         }
