@@ -96,10 +96,8 @@ public class ProductController {
                     content = @Content),
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
-    public List<ProductResponse> getProducts(@PathVariable @Valid Category category) throws ChangeSetPersister.NotFoundException {
-
+    public List<ProductResponse> getProducts(@PathVariable @Valid Category category)  {
         return productMapper.productsToProductsResponse(productServicePort.getProductsByCategory(category));
-
     }
 
 }

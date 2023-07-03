@@ -1,6 +1,7 @@
 package br.com.project.fiapfood.adapters.outbound;
 
 import br.com.project.fiapfood.adapters.inbound.entity.ProductEntity;
+import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
 import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
 import br.com.project.fiapfood.adapters.inbound.mapper.ProductMapper;
 import br.com.project.fiapfood.adapters.outbound.repository.ProductRepository;
