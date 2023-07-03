@@ -24,13 +24,12 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {EntityNotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage objectNotFoundException(Exception ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(
+        return new ErrorMessage(
                 HttpStatus.NOT_FOUND,
                 LocalDateTime.now(),
                 "Object Not Found");
-
-        return message;
     }
+
 
     @ExceptionHandler(value = {InvalidFieldException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)

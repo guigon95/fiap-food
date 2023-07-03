@@ -18,13 +18,16 @@ public class ProductService implements ProductServicePort {
 
     @Override
     public Product saveProduct(Product product) {
-
-
         return this.productPort.save(product);
     }
 
     @Override
     public void deleteProduct(UUID id) {
         this.productPort.delete(id);
+    }
+
+    @Override
+    public Product updateProduct(Product product){
+        return this.productPort.update(product);
     }
 }

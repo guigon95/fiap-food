@@ -7,5 +7,6 @@ import java.util.UUID;
 public interface ProductPort {
     Product save(Product product);
     void delete(UUID id);
+    Product update(Product product);
 
 }
