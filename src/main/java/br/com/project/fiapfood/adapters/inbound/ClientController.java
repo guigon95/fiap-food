@@ -3,6 +3,7 @@ package br.com.project.fiapfood.adapters.inbound;
 import br.com.project.fiapfood.adapters.inbound.mapper.ClientMapper;
 import br.com.project.fiapfood.adapters.inbound.request.ClientRequest;
 import br.com.project.fiapfood.adapters.inbound.response.ClientResponse;
+import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.application.port.in.ClientServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -59,7 +60,7 @@ public class ClientController {
     public ClientResponse findClientByCpf(@PathVariable @Valid @CPF String cpf){
         var client = clientServicePort.findClientByCpf(cpf);
         if (client == null){
-            throw new EntityNotFoundException();
+            throw new ObjectNotFoundException("Client not found");
         }
         return clientMapper.clientToClientResponse(client);
     }
