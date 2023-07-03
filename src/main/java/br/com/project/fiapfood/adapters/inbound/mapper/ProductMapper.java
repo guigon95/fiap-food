@@ -4,18 +4,26 @@ import br.com.project.fiapfood.adapters.inbound.entity.ProductEntity;
 import br.com.project.fiapfood.adapters.inbound.request.ProductRequest;
 import br.com.project.fiapfood.adapters.inbound.response.ProductResponse;
 import br.com.project.fiapfood.application.core.domain.Product;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
-    Product ProductEntityToProduct(ProductEntity ProductEntity);
+    Product productEntityToProduct(ProductEntity productEntity);
 
-    ProductEntity ProductToProductEntity(Product product);
+    ProductEntity productToProductEntity(Product product);
 
-    Product ProductRequestToProduct(ProductRequest productRequest);
+    Product productRequestToProduct(ProductRequest productRequest);
 
-    ProductResponse ProductToProductResponse(Product product);
+    ProductResponse productToProductResponse(Product product);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    void updateProductEntityFromProduct(Product product, @MappingTarget ProductEntity productEntity);
+
+    List<Product> productEntitiesToProducts(List<ProductEntity> productEntities);
+    List<ProductResponse> productsToProductsResponse(List<Product> products);
 
 
 }

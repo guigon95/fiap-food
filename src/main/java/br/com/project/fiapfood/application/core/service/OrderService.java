@@ -1,9 +1,8 @@
 package br.com.project.fiapfood.application.core.service;
 
 import br.com.project.fiapfood.adapters.inbound.mapper.OrderMapper;
-import br.com.project.fiapfood.adapters.inbound.response.OrderResponse;
 import br.com.project.fiapfood.application.core.domain.Order;
-import br.com.project.fiapfood.application.core.exception.OrderNotFoundException;
+import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.application.port.in.OrderServicePort;
 import br.com.project.fiapfood.application.port.out.OrderPort;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,7 @@ public class OrderService implements OrderServicePort {
         var order = orderPort.findById(id);
 
         if(order == null)
-            throw new OrderNotFoundException();
+            throw new ObjectNotFoundException("Order not found");
 
         return order;
     }
