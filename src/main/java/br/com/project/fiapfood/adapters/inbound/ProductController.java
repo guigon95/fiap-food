@@ -4,6 +4,7 @@ import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
 import br.com.project.fiapfood.adapters.inbound.mapper.ProductMapper;
 import br.com.project.fiapfood.adapters.inbound.request.ProductRequest;
 import br.com.project.fiapfood.adapters.inbound.response.ProductResponse;
+import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.application.port.in.ProductServicePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -73,13 +74,13 @@ public class ProductController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     public ProductResponse updateProduct(@PathVariable @Valid @org.hibernate.validator.constraints.UUID UUID id,
-                                         @RequestBody @Valid ProductRequest productRequest) throws EntityNotFoundException {
+                                         @RequestBody @Valid ProductRequest productRequest) throws ObjectNotFoundException {
 
         var product = productMapper.productRequestToProduct(productRequest);
         product.setId(id);
         var updateProduct = productServicePort.updateProduct(product);
         if (updateProduct == null){
-            throw new EntityNotFoundException();
+            throw new ObjectNotFoundException("Product not found");
         }
         return productMapper.productToProductResponse(updateProduct);
 
