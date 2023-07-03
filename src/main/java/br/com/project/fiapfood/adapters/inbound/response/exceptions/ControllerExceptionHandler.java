@@ -2,6 +2,7 @@ package br.com.project.fiapfood.adapters.inbound.response.exceptions;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,17 @@ import java.util.List;
 
 @RestControllerAdvice
 public class ControllerExceptionHandler {
+    @ExceptionHandler(value = {EntityNotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage objectNotFoundException(Exception ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.NOT_FOUND,
+                LocalDateTime.now(),
+                "Object Not Found");
+
+        return message;
+    }
+
 
     @ExceptionHandler(value = {ChangeSetPersister.NotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
