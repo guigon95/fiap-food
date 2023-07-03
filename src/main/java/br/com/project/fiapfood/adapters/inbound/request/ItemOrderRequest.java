@@ -1,7 +1,5 @@
 package br.com.project.fiapfood.adapters.inbound.request;
 
-import br.com.project.fiapfood.application.core.domain.Order;
-import br.com.project.fiapfood.application.core.domain.Product;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +13,8 @@ import java.util.UUID;
 public class ItemOrderRequest {
 
     @NotEmpty
-    private UUID productId;
+    public UUID productId;
 
     @NotEmpty
-    private Integer quantity;
+    public Integer quantity;
 }

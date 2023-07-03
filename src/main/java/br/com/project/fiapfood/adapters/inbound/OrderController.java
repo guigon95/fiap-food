@@ -56,13 +56,14 @@ public class OrderController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public OrderResponse getOrdeById(@PathVariable UUID id){
+    public OrderResponse getOrderById(@PathVariable UUID id){
 
         return orderMapper.orderToOrderResponse(orderServicePort.findOrderById(id));
 
     }
 
-    public OrderResponse saveOrder(OrderRequest orderRequest){
+    @PostMapping
+    public OrderResponse saveOrder(@RequestBody OrderRequest orderRequest){
 
         var order = orderMapper.orderRequestToOrder(orderRequest);
 

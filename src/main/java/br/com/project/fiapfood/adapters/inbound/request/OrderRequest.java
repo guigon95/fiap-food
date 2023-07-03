@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderRequest {
 
     @NotEmpty
-    private List<ItemOrderRequest> itemOrder;
+    public List<ItemOrderRequest> itemOrder;
 
-    private OrderStatus orderStatus;
+    public OrderStatus orderStatus;
 }
