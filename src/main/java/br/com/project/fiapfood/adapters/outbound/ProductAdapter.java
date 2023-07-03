@@ -7,9 +7,9 @@ import br.com.project.fiapfood.adapters.outbound.repository.ProductRepository;
 import br.com.project.fiapfood.application.core.domain.Product;
 import br.com.project.fiapfood.application.port.out.ProductPort;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -31,11 +31,13 @@ public class ProductAdapter implements ProductPort {
     }
 
     @Override
-    public Product update(Product product) throws ChangeSetPersister.NotFoundException {
-        ProductEntity productOld = productRepository.findById(product.getId()).
-                orElseThrow(ChangeSetPersister.NotFoundException::new);
-        productMapper.updateProductEntityFromProduct(product, productOld);
-        return productMapper.productEntityToProduct(productRepository.save(productOld));
+    public Product update(Product product) {
+        Optional<ProductEntity> productOld = productRepository.findById(product.getId());
+        if (productOld.isEmpty()) {
+            return null;
+        }
+        productMapper.updateProductEntityFromProduct(product, productOld.get());
+        return productMapper.productEntityToProduct(productRepository.save(productOld.get()));
 
     }
 }

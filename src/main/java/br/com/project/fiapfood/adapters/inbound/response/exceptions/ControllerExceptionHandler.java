@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,25 +24,13 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {EntityNotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage objectNotFoundException(Exception ex, WebRequest request) {
-        ErrorMessage message = new ErrorMessage(
-                HttpStatus.NOT_FOUND,
-                LocalDateTime.now(),
-                "Object Not Found");
-
-        return message;
-    }
-
-
-    @ExceptionHandler(value = {ChangeSetPersister.NotFoundException.class})
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ErrorMessage notFoundException(ChangeSetPersister.NotFoundException ex, WebRequest request) {
-
         return new ErrorMessage(
                 HttpStatus.NOT_FOUND,
                 LocalDateTime.now(),
-                ex.getMessage()
-        );
+                "Object Not Found");
     }
+
+
     @ExceptionHandler(value = {InvalidFieldException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage httpMessageNotReadableException(InvalidFieldException ex, WebRequest request) {

@@ -9,9 +9,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,11 +71,15 @@ public class ProductController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     public ProductResponse updateProduct(@PathVariable @Valid @org.hibernate.validator.constraints.UUID UUID id,
-                                         @RequestBody @Valid ProductRequest productRequest) throws ChangeSetPersister.NotFoundException {
+                                         @RequestBody @Valid ProductRequest productRequest) throws EntityNotFoundException {
 
         var product = productMapper.productRequestToProduct(productRequest);
         product.setId(id);
-        return productMapper.productToProductResponse(productServicePort.updateProduct(product));
+        var updateProduct = productServicePort.updateProduct(product);
+        if (updateProduct == null){
+            throw new EntityNotFoundException();
+        }
+        return productMapper.productToProductResponse(updateProduct);
 
     }
 
