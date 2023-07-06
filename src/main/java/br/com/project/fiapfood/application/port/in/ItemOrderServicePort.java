@@ -6,6 +6,7 @@ import br.com.project.fiapfood.application.port.out.ItemOrderPort;
 import java.util.UUID;
 
 public interface ItemOrderServicePort {
-
     ItemOrder findItemOrderById(UUID id);
+
+    ItemOrder saveItemOrder(ItemOrder itemOrder);
 }

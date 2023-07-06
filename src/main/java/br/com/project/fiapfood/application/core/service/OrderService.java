@@ -1,21 +1,26 @@
 package br.com.project.fiapfood.application.core.service;
 
+import br.com.project.fiapfood.adapters.inbound.entity.enums.OrderStatus;
 import br.com.project.fiapfood.adapters.inbound.mapper.OrderMapper;
+import br.com.project.fiapfood.application.core.domain.ItemOrder;
 import br.com.project.fiapfood.application.core.domain.Order;
 import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.application.port.in.OrderServicePort;
+import br.com.project.fiapfood.application.port.out.ItemOrderPort;
 import br.com.project.fiapfood.application.port.out.OrderPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 public class OrderService implements OrderServicePort {
 
     private final OrderPort orderPort;
+
+    private final ItemOrderPort itemOrderPort;
 
     private final OrderMapper orderMapper;
 
@@ -25,7 +30,7 @@ public class OrderService implements OrderServicePort {
     }
 
     @Override
-    public Order findOrderById(UUID id) {
+    public Order findOrderById(Long id) {
         var order = orderPort.findById(id);
 
         if(order == null)
@@ -36,6 +41,15 @@ public class OrderService implements OrderServicePort {
 
     @Override
     public Order saveOrder(Order order) {
-        return orderPort.save(order);
+
+        List<ItemOrder> savedItemOrder = new ArrayList<>();
+        Order saved = orderPort.save(new Order(null, null, OrderStatus.RECEBIDO));
+
+        for (ItemOrder itemOrder: order.getItemOrder()) {
+            itemOrder.setOrder(saved);
+            ItemOrder item = itemOrderPort.save(itemOrder);
+        }
+
+        return orderPort.findById(saved.getId());
     }
 }

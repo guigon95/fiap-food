@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface ItemOrderPort {
     public ItemOrder findById(UUID id);
+
+    ItemOrder save(ItemOrder itemOrder);
 }

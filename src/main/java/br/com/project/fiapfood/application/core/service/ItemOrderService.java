@@ -17,4 +17,9 @@ public class ItemOrderService implements ItemOrderServicePort {
     public ItemOrder findItemOrderById(UUID id) {
         return itemOrderPort.findById(id);
     }
+
+    @Override
+    public ItemOrder saveItemOrder(ItemOrder itemOrder) {
+        return itemOrderPort.save(itemOrder);
+    }
 }

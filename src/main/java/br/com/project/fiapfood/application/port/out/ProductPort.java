@@ -12,4 +12,6 @@ public interface ProductPort {
     Product update(Product product);
 
     List<Product> getByCategory(Category category);
+
+    Product findById(UUID id);
 }

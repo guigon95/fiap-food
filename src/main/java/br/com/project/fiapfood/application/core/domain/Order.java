@@ -6,14 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Builder
 @Data
 public class Order {
 
-    private UUID id;
+    private Long id;
 
     private List<ItemOrder> itemOrder;
 
