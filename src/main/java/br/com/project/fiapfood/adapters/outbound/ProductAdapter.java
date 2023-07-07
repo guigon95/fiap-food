@@ -6,6 +6,7 @@ import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
 import br.com.project.fiapfood.adapters.inbound.mapper.ProductMapper;
 import br.com.project.fiapfood.adapters.outbound.repository.ProductRepository;
 import br.com.project.fiapfood.application.core.domain.Product;
+import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.application.port.out.ProductPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -46,5 +47,10 @@ public class ProductAdapter implements ProductPort {
     @Override
     public List<Product> getByCategory(Category category) {
         return productMapper.productEntitiesToProducts(productRepository.findAllByCategory(category));
+    }
+
+    @Override
+    public Product findById(UUID id) {
+        return productMapper.productEntityToProduct(productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Teste")));
     }
 }
