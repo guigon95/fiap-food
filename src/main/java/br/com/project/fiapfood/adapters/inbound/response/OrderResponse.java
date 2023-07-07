@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 public class OrderResponse {
 
+    public Long id;
+
     public List<ItemOrderResponse> itemOrder;
 
     @Enumerated(EnumType.STRING)

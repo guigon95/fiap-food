@@ -10,6 +10,6 @@ public interface ProductServicePort {
     Product saveProduct(Product product);
     void deleteProduct(UUID id);
     Product updateProduct(Product product);
-
+    Product findById(UUID id);
     List<Product> getProductsByCategory(Category category);
 }

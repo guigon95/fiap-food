@@ -15,6 +15,8 @@ public class ItemOrder {
 
     private Product product;
 
+    private Order order;
+
     private Integer quantity;
 
 

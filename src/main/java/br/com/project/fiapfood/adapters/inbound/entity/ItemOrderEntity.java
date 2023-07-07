@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.UUID;
 
@@ -13,23 +14,24 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@IdClass(ItemOrderPK.class)
 public class ItemOrderEntity {
 
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//(cascade = {CascadeType.MERGE })
     @MapsId("product_id")
-    @JoinColumn(name = "product_id", nullable = false)
+    @ToString.Exclude
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private ProductEntity product;
 
-    @ManyToOne
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//(cascade = {CascadeType.MERGE })
     @MapsId("order_id")
-    @JoinColumn(name = "order_id", nullable = false)
+    @ToString.Exclude
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private OrderEntity order;
 
+    @Column
     private Integer quantity;
 
 }
