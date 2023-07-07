@@ -14,9 +14,10 @@ import java.util.List;
 @Data
 public class OrderEntity {
 
+
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, columnDefinition = "BIGINT")
     private Long id;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
