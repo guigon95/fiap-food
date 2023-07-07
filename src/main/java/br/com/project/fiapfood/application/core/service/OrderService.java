@@ -52,4 +52,10 @@ public class OrderService implements OrderServicePort {
 
         return orderPort.findById(saved.getId());
     }
+
+    @Override
+    public Order updateOrder(Order order) {
+        itemOrderPort.deleteByOrderId(order.getId());
+        return this.orderPort.update(order);
+    }
 }

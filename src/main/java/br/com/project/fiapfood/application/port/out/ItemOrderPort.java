@@ -8,4 +8,6 @@ public interface ItemOrderPort {
     public ItemOrder findById(UUID id);
 
     ItemOrder save(ItemOrder itemOrder);
+
+    void deleteByOrderId(Long id);
 }

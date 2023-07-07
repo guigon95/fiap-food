@@ -1,6 +1,7 @@
 package br.com.project.fiapfood.adapters.inbound.mapper;
 
 import br.com.project.fiapfood.adapters.inbound.entity.OrderEntity;
+import br.com.project.fiapfood.adapters.inbound.entity.ProductEntity;
 import br.com.project.fiapfood.adapters.inbound.request.ItemOrderRequest;
 import br.com.project.fiapfood.adapters.inbound.request.OrderRequest;
 import br.com.project.fiapfood.adapters.inbound.response.OrderResponse;
@@ -8,9 +9,7 @@ import br.com.project.fiapfood.application.core.domain.ItemOrder;
 import br.com.project.fiapfood.application.core.domain.Order;
 import br.com.project.fiapfood.application.core.domain.Product;
 import br.com.project.fiapfood.application.port.in.ProductServicePort;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -41,6 +40,9 @@ public abstract class OrderMapper {
         return itemOrders;
     }
 
-    public abstract OrderResponse orderToOrderResponse(Order order);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "id", ignore = true)
+    public abstract void updateOrderEntityFromOrder(Order order, @MappingTarget OrderEntity orderEntity);
 
+    public abstract OrderResponse orderToOrderResponse(Order order);
 }

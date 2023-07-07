@@ -27,4 +27,9 @@ public class ItemOrderAdapter implements ItemOrderPort {
         var itemOrderEntity = itemOrderMapper.itemOrderToItemOrderEntity(itemOrder);
         return itemOrderMapper.itemOrderEntityToItemOrder(itemOrderRepository.save(itemOrderEntity));
     }
+
+    @Override
+    public void deleteByOrderId(Long id) {
+        itemOrderRepository.deleteByOrderId(id);
+    }
 }
