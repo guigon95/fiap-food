@@ -43,7 +43,7 @@ public class OrderService implements OrderServicePort {
     public Order saveOrder(Order order) {
 
         List<ItemOrder> savedItemOrder = new ArrayList<>();
-        Order saved = orderPort.save(new Order(null, null, OrderStatus.RECEBIDO));
+        Order saved = orderPort.save(new Order(null, null, OrderStatus.RECEIVED));
 
         for (ItemOrder itemOrder: order.getItemOrder()) {
             itemOrder.setOrder(saved);

@@ -22,17 +22,8 @@ public class OrderAdapter implements OrderPort {
 
     @Override
     public List<Order> findAll() {
-
-        List<OrderEntity> all = orderRepository.findAll();
-
-        for (OrderEntity order: all) {
-
-            System.out.println(order.toString());
-        }
-
-        Stream<OrderEntity> stream = all.stream();
-
-        return stream
+        return orderRepository.findAll()
+                .stream()
                 .map(order -> orderMapper.orderEntityToOrder(order)).collect(Collectors.toList());
     }
 
