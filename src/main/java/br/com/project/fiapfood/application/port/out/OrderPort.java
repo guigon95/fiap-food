@@ -12,5 +12,4 @@ public interface OrderPort {
 
     Order save(Order order);
 
-    Order update(Order order);
 }

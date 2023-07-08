@@ -71,6 +71,7 @@ public class OrderService implements OrderServicePort {
         order.setOrderStatus(saved.getOrderStatus());
         order.setClient(order.getClient());
         addItemOrder(order.getItemOrder(), order);
+
         return order;
     }
 }
