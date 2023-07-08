@@ -1,0 +1,39 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:8.0.33
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'fiapfoodt'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+    networks:
+      - my-networks
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATASOUECE_URL: 'jdbc:mysql://db/fiapfoodt'
+      DATASOURCE_USER: 'root'
+      DATASOURCE_PWD: 'password'
+      PROFILE_NAME: 'local'
+    ports:
+      - 8080:8080
+    networks:
+      - my-networks
+    links:
+      - 'db'
+volumes:
+  my-db:
+networks:
+  my-networks:
+    driver: bridge
