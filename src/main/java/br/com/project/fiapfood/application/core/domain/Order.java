@@ -1,15 +1,14 @@
 package br.com.project.fiapfood.application.core.domain;
 
 import br.com.project.fiapfood.adapters.inbound.entity.enums.OrderStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 public class Order {
 
     private Long id;
@@ -17,4 +16,6 @@ public class Order {
     private List<ItemOrder> itemOrder;
 
     private OrderStatus orderStatus;
+
+    private Client client;
 }

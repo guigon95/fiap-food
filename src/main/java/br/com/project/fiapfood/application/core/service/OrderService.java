@@ -10,6 +10,7 @@ import br.com.project.fiapfood.application.port.out.ItemOrderPort;
 import br.com.project.fiapfood.application.port.out.OrderPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,14 +43,35 @@ public class OrderService implements OrderServicePort {
     @Override
     public Order saveOrder(Order order) {
 
-        List<ItemOrder> savedItemOrder = new ArrayList<>();
-        Order saved = orderPort.save(new Order(null, null, OrderStatus.RECEIVED));
+        Order saved = orderPort.save(new Order(null, null, OrderStatus.RECEIVED, order.getClient()));
 
-        for (ItemOrder itemOrder: order.getItemOrder()) {
-            itemOrder.setOrder(saved);
+        addItemOrder(order.getItemOrder(), saved);
+
+        return saved;
+    }
+
+    private void addItemOrder(List<ItemOrder> orderList, Order order) {
+        List<ItemOrder> itemOrderList = new ArrayList<>();
+        order.setItemOrder(null);
+        for (ItemOrder itemOrder: orderList) {
+            itemOrder.setOrder(order);
             ItemOrder item = itemOrderPort.save(itemOrder);
+            itemOrderList.add(item);
         }
 
-        return orderPort.findById(saved.getId());
+        order.setItemOrder(itemOrderList);
+    }
+
+    @Override
+    @Transactional
+    public Order updateOrder(Order order) {
+        itemOrderPort.deleteByOrderId(order.getId());
+
+        Order saved = orderPort.findById(order.getId());
+        order.setOrderStatus(saved.getOrderStatus());
+        order.setClient(order.getClient());
+        addItemOrder(order.getItemOrder(), order);
+
+        return order;
     }
 }

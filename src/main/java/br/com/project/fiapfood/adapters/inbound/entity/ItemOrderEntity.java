@@ -18,14 +18,14 @@ import java.util.UUID;
 public class ItemOrderEntity {
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//(cascade = {CascadeType.MERGE })
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("product_id")
     @ToString.Exclude
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private ProductEntity product;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)//(cascade = {CascadeType.MERGE })
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("order_id")
     @ToString.Exclude
     @JoinColumn(name = "order_id", referencedColumnName = "id")

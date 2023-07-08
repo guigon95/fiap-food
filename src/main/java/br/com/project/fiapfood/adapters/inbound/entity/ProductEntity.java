@@ -30,7 +30,7 @@ public class ProductEntity {
     private Category category;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product")
     private List<ItemOrderEntity> itemOrder;
 
     private String description;

@@ -20,9 +20,13 @@ public class OrderEntity {
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT")
     private Long id;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order")
     private List<ItemOrderEntity> itemOrder;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientEntity client;
 }
