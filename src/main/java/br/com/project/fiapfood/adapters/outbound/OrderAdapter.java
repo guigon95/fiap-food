@@ -57,6 +57,7 @@ public class OrderAdapter implements OrderPort {
         List<ItemOrder> itemOrderList = new ArrayList<>();
         for (ItemOrder itemOrder: order.getItemOrder()) {
             //itemOrder.setOrder(order);
+            itemOrder.setOrder(order);
             itemOrderList.add(itemOrder);
         }
 
@@ -64,6 +65,6 @@ public class OrderAdapter implements OrderPort {
 
         var orderEntity = orderMapper.orderToOrderEntity(order);
 
-        return orderMapper.orderEntityToOrder(orderRepository.save(orderOld.get()));
+        return orderMapper.orderEntityToOrder(orderRepository.save(orderEntity));
     }
 }

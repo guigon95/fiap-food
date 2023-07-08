@@ -18,4 +18,6 @@ public class OrderResponse {
 
     @Enumerated(EnumType.STRING)
     public OrderStatus orderStatus;
+
+    public ClientResponse client;
 }

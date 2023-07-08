@@ -1,6 +1,7 @@
 package br.com.project.fiapfood.adapters.inbound.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,12 @@ import java.util.UUID;
 @Builder
 public class ItemOrderRequest {
 
+    @NotNull(message = "The field product_id cannot be empty.")
     @JsonProperty("product_id")
     public UUID productId;
 
+    @NotNull(message = "The field quantity cannot be empty.")
+    @Min(value = 1, message = "The field quantity cannot be less than 1.")
     @JsonProperty("quantity")
     public Integer quantity;
 }

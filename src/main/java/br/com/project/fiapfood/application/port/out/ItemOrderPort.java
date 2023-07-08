@@ -10,4 +10,8 @@ public interface ItemOrderPort {
     ItemOrder save(ItemOrder itemOrder);
 
     void deleteByOrderId(Long id);
+
+    ItemOrder update(ItemOrder itemOrder);
+
+
 }

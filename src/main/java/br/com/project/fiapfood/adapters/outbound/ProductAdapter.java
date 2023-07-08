@@ -51,6 +51,6 @@ public class ProductAdapter implements ProductPort {
 
     @Override
     public Product findById(UUID id) {
-        return productMapper.productEntityToProduct(productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Teste")));
+        return productMapper.productEntityToProduct(productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Product not found")));
     }
 }

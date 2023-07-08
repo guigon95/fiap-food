@@ -4,6 +4,7 @@ package br.com.project.fiapfood.adapters.inbound.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -22,4 +23,7 @@ public class ClientEntity {
 
     @Column(unique = true)
     private String cpf;
+
+    @OneToMany(mappedBy = "client")
+    private List<OrderEntity> order;
 }

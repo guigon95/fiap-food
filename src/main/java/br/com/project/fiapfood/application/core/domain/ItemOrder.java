@@ -1,17 +1,14 @@
 package br.com.project.fiapfood.application.core.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.util.UUID;
 
 @AllArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
 public class ItemOrder {
-
-    private UUID id;
 
     private Product product;
 

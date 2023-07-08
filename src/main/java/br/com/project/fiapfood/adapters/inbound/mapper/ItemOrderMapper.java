@@ -30,6 +30,7 @@ public abstract class ItemOrderMapper {
     @Mapping(target = "order", ignore = true)
     public abstract ItemOrder itemOrderEntityToItemOrder(ItemOrderEntity itemOrderEntity);
 
+
     public abstract ItemOrderEntity itemOrderToItemOrderEntity(ItemOrder itemOrder);
 
     public abstract ItemOrderResponse itemOrderToItemOrderResponse(ItemOrder itemOrder);

@@ -5,6 +5,8 @@ import br.com.project.fiapfood.application.port.in.ClientServicePort;
 import br.com.project.fiapfood.application.port.out.ClientPort;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class ClientService implements ClientServicePort {
 
@@ -22,5 +24,10 @@ public class ClientService implements ClientServicePort {
     @Override
     public Client findClientByCpf(String cpf) {
         return this.clientPort.findClientByCpf(cpf);
+    }
+
+    @Override
+    public Client findById(UUID id) {
+        return this.clientPort.findById(id);
     }
 }

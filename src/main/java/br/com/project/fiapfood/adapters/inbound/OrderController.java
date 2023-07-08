@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -77,7 +78,7 @@ public class OrderController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     @PostMapping
-    public OrderResponse saveOrder(@RequestBody OrderRequest orderRequest){
+    public OrderResponse saveOrder(@RequestBody @Valid OrderRequest orderRequest){
 
         var order = orderMapper.orderRequestToOrder(orderRequest);
 
@@ -94,12 +95,12 @@ public class OrderController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     @PutMapping("/{id}")
-    public OrderResponse updateOrder(@PathVariable Long id, @RequestBody OrderRequest orderRequest){
+    public OrderResponse updateOrder(@PathVariable Long id, @Valid @RequestBody OrderRequest orderRequest){
 
         var order = orderMapper.orderRequestToOrder(orderRequest);
         order.setId(id);
 
         var updatedOrder = orderServicePort.updateOrder(order);
-        return orderMapper.orderToOrderResponse(orderServicePort.updateOrder(order));
+        return orderMapper.orderToOrderResponse(updatedOrder);
     }
 }
