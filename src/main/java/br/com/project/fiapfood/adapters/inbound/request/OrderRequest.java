@@ -1,6 +1,5 @@
 package br.com.project.fiapfood.adapters.inbound.request;
 
-import br.com.project.fiapfood.adapters.inbound.entity.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -8,9 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.List;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Data
@@ -23,6 +22,7 @@ public class OrderRequest {
     @Valid
     public List<ItemOrderRequest> itemOrder;
 
-    public UUID client;
+    @CPF(message = "The field cpf has be document.")
+    public String client;
 
 }
