@@ -6,6 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Path;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -21,12 +22,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
+@Log4j2
 @RestControllerAdvice
 public class ControllerExceptionHandler {
     @ExceptionHandler(value = {EntityNotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ErrorMessage objectNotFoundException(Exception ex, WebRequest request) {
+        log.error(ex.getMessage(), ex);
         return new ErrorMessage(
                 HttpStatus.NOT_FOUND,
                 LocalDateTime.now(),
@@ -37,7 +39,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {InvalidFieldException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage httpMessageNotReadableException(InvalidFieldException ex, WebRequest request) {
-
+        log.error(ex.getMessage(), ex);
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST,
                 LocalDateTime.now(),
@@ -49,6 +51,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {ConstraintViolationException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage constraintViolationException(ConstraintViolationException ex, WebRequest request) {
+        log.error(ex.getMessage(), ex);
         List<ErrorMessage.CauseError> causes = new ArrayList<>();
         for (ConstraintViolation constraint: ex.getConstraintViolations()) {
             var listField = constraint.getPropertyPath().toString().split("\\.");
@@ -68,7 +71,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {HttpMessageNotReadableException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage httpMessageNotReadableException(Exception ex, WebRequest request) {
-
+        log.error(ex.getMessage(), ex);
         List<?> listss = new ArrayList<>();
 
         if (ex instanceof JsonParseException jsonEx) {
@@ -92,6 +95,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage methodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
+        log.error(ex.getMessage(), ex);
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST,
                 LocalDateTime.now(),
@@ -101,6 +105,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {SQLException.class, DataIntegrityViolationException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage sqlExceptionHandler(Exception ex, WebRequest request) {
+        log.error(ex.getMessage(), ex);
         return new ErrorMessage(
                 HttpStatus.BAD_REQUEST,
                 LocalDateTime.now(),
@@ -112,6 +117,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(value = {Exception.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage getException(Exception ex, WebRequest request) {
+        log.error(ex.getMessage(), ex);
         return new ErrorMessage(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 LocalDateTime.now(),

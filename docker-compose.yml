@@ -27,7 +27,16 @@ services:
       DATASOURCE_PWD: 'password'
       PROFILE_NAME: 'local'
     ports:
-      - 8080:8080
+      - '8080:8080'
+    networks:
+      - my-networks
+    links:
+      - 'db'
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8282:8080'
     networks:
       - my-networks
     links:

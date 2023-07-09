@@ -19,13 +19,14 @@ public class ClientAdapter implements ClientPort {
     private final ClientMapper clientMapper;
     @Override
     public Client save(Client client) {
-        var clientEntity = clientMapper.clientToClientEntity(client);
-        return clientMapper.clientEntityToClient(clientRepository.save(clientEntity));
+        return clientMapper.clientEntityToClient(clientRepository.save(
+                clientMapper.clientToClientEntity(client)));
     }
 
     @Override
     public Client findClientByCpf(String cpf) {
-        return clientMapper.clientEntityToClient(clientRepository.findByCpf(cpf));
+        return clientMapper.clientEntityToClient(clientRepository.findByCpf(cpf).
+                orElseThrow(() -> new ObjectNotFoundException("Client not found")));
     }
 
     @Override
