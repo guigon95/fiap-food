@@ -36,9 +36,9 @@ public abstract class OrderMapper {
     public abstract Order orderRequestToOrder(OrderRequest orderRequest);
 
     @Named("fromClientUuidToClient")
-    protected Client fromClientUuidToClient(UUID client) {
+    protected Client fromClientUuidToClient(String client) {
         if(client != null)
-            return clientServicePort.findById(client);
+            return clientServicePort.findClientByCpf(client);
 
         return null;
     }
