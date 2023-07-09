@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/client")
 @RequiredArgsConstructor
 @Validated
+@Log4j2
 public class ClientController {
 
     private final ClientMapper clientMapper;
@@ -40,7 +42,6 @@ public class ClientController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     public ClientResponse saveClient(@RequestBody @Valid ClientRequest clientRequest){
-
         var client = clientMapper.clientRequestToClient(clientRequest);
         return clientMapper.clientToClientResponse(clientServicePort.saveClient(client));
 
@@ -59,9 +60,6 @@ public class ClientController {
                     content = @Content) })
     public ClientResponse findClientByCpf(@PathVariable @Valid @CPF String cpf){
         var client = clientServicePort.findClientByCpf(cpf);
-        if (client == null){
-            throw new ObjectNotFoundException("Client not found");
-        }
         return clientMapper.clientToClientResponse(client);
     }
 

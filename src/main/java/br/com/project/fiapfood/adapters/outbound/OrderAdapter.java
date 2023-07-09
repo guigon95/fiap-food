@@ -22,7 +22,7 @@ public class OrderAdapter implements OrderPort {
     public List<Order> findAll() {
         return orderRepository.findAll()
                 .stream()
-                .map(order -> orderMapper.orderEntityToOrder(order)).collect(Collectors.toList());
+                .map(orderMapper::orderEntityToOrder).toList();
     }
 
     @Override

@@ -35,10 +35,9 @@ public class ProductAdapter implements ProductPort {
 
     @Override
     public Product update(Product product) {
-        Optional<ProductEntity> productOld = productRepository.findById(product.getId());
-        if (productOld.isEmpty()) {
-            return null;
-        }
+        Optional<ProductEntity> productOld = Optional.of(productRepository.findById(product.getId()))
+                .orElseThrow(() -> new ObjectNotFoundException("Product not found"));
+
         productMapper.updateProductEntityFromProduct(product, productOld.get());
         return productMapper.productEntityToProduct(productRepository.save(productOld.get()));
 
@@ -51,6 +50,7 @@ public class ProductAdapter implements ProductPort {
 
     @Override
     public Product findById(UUID id) {
-        return productMapper.productEntityToProduct(productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Product not found")));
+        return productMapper.productEntityToProduct(productRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Product not found")));
     }
 }
