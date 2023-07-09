@@ -43,7 +43,7 @@ public class OrderService implements OrderServicePort {
     @Override
     public Order saveOrder(Order order) {
 
-        Order saved = orderPort.save(new Order(null, null, OrderStatus.RECEIVED, order.getClient()));
+        Order saved = orderPort.save(new Order(null, null, null, order.getClient()));
 
         addItemOrder(order.getItemOrder(), saved);
 
