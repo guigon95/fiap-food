@@ -1,11 +1,11 @@
 package br.com.project.fiapfood.adapters.inbound.response.exceptions;
 
+import br.com.project.fiapfood.application.core.exception.InvalidFieldException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.validation.Path;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -32,7 +32,7 @@ public class ControllerExceptionHandler {
         return new ErrorMessage(
                 HttpStatus.NOT_FOUND,
                 LocalDateTime.now(),
-                "Object Not Found");
+                ex.getMessage());
     }
 
 

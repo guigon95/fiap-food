@@ -16,5 +16,6 @@ public class CheckoutEntity {
     @Column(name = "ordem", nullable = false, columnDefinition = "BIGINT")
     private Long ordem;
 
-    private Long idPedido;
+    @Column(name = "order_id")
+    private Long orderId;
 }

@@ -15,6 +15,11 @@ Fast food self-service
     docker-compose up -d
 ```
 
+## Stop all applications in Docker containers:
+```
+    docker-compose stop
+```
+
 ## Start application in Docker container with Mysql DB in Docker and rebuild service image:
 ```
     docker-compose up --build --force-recreate --no-deps -d 
@@ -40,6 +45,9 @@ Fast food self-service
 ![img.png](docs/adminer_home.png)
 
 **OBS: If you want to prepopulate the database, we have a script with some essential random inserts and it can be performed on the import screen**
+
+Link to import sql file:
+```http://localhost:8282/?server=db&username=root&db=fiapfoodt&import=```
 
 SQL file `src/main/resources/scripts/population-db.sql`
 

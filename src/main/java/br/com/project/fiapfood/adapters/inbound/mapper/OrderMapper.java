@@ -49,7 +49,7 @@ public abstract class OrderMapper {
         List<ItemOrder> itemOrders = new ArrayList<>();
 
         for (ItemOrderRequest itemOrderReq: itemOrderRequest) {
-            Product product = productServicePort.findById(itemOrderReq.productId);
+            Product product = productServicePort.findByIdAndStatusActive(itemOrderReq.productId);
             itemOrders.add(new ItemOrder(product, null, itemOrderReq.getQuantity()));
         }
         return itemOrders;
