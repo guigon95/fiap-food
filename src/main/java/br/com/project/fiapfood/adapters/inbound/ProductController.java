@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.persistence.EntityNotFoundException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
+@Tag(name = "Products", description = "Access to product management")
 public class ProductController {
 
     private final ProductMapper productMapper;
@@ -48,12 +49,10 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a product")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Product updated",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProductResponse.class)) }),
+            @ApiResponse(responseCode = "204", description = "Product updated"),
             @ApiResponse(responseCode = "4xx", description = "Invalid data",
                     content = @Content),
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
@@ -97,8 +96,23 @@ public class ProductController {
                     content = @Content),
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
-    public List<ProductResponse> getProducts(@PathVariable @Valid Category category)  {
-        return productMapper.productsToProductsResponse(productServicePort.getProductsByCategory(category));
+    public List<ProductResponse> findProductsByCategory(@PathVariable @Valid Category category)  {
+        return productMapper.productsToProductsResponse(productServicePort.findProductsByCategory(category));
+    }
+
+    @GetMapping("/category/{category}/status/active")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Search all products by category and status ACTIVE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Product get",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ProductResponse.class)) }),
+            @ApiResponse(responseCode = "4xx", description = "Invalid data",
+                    content = @Content),
+            @ApiResponse(responseCode = "5xx", description = "Internal server error",
+                    content = @Content) })
+    public List<ProductResponse> findProductsByCategoryAndActive(@PathVariable @Valid Category category)  {
+        return productMapper.productsToProductsResponse(productServicePort.findByCategoryAndStatusActive(category));
     }
 
 }

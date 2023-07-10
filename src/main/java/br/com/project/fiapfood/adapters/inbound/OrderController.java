@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/order")
 @RequiredArgsConstructor
+@Tag(name = "Orders", description  = "Access to order management")
 public class OrderController {
 
     private final OrderMapper orderMapper;
@@ -62,7 +64,7 @@ public class OrderController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public OrderResponse getOrderById(@PathVariable Long id){
+    public OrderResponse getOrderById(@PathVariable @Schema (description = "order id") Long id){
 
         return orderMapper.orderToOrderResponse(orderServicePort.findOrderById(id));
 
@@ -95,7 +97,7 @@ public class OrderController {
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
     @PutMapping("/{id}")
-    public OrderResponse updateOrder(@PathVariable Long id, @Valid @RequestBody OrderRequest orderRequest){
+    public OrderResponse updateOrder(@PathVariable @Schema (description = "order id") Long id, @Valid @RequestBody OrderRequest orderRequest){
 
         var order = orderMapper.orderRequestToOrder(orderRequest);
         order.setId(id);

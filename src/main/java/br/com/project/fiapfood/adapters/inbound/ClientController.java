@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/client")
 @RequiredArgsConstructor
 @Validated
-@Log4j2
+@Tag(name = "Clients", description = "Access to client management")
 public class ClientController {
 
     private final ClientMapper clientMapper;
@@ -58,7 +59,7 @@ public class ClientController {
                     content = @Content),
             @ApiResponse(responseCode = "5xx", description = "Internal server error",
                     content = @Content) })
-    public ClientResponse findClientByCpf(@PathVariable @Valid @CPF String cpf){
+    public ClientResponse findClientByCpf(@PathVariable @Valid @CPF @Schema (description = "client identifier")  String cpf){
         var client = clientServicePort.findClientByCpf(cpf);
         return clientMapper.clientToClientResponse(client);
     }

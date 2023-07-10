@@ -1,6 +1,7 @@
 package br.com.project.fiapfood.adapters.inbound.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -20,9 +21,11 @@ public class OrderRequest {
     @NotEmpty(message = "The field item_order cannot be empty.")
     @JsonProperty("item_order")
     @Valid
+    @Schema(description = "list the of products with quantity")
     public List<ItemOrderRequest> itemOrder;
 
     @CPF(message = "The field cpf has be document.")
+    @Schema (description = "client identifier")
     public String client;
 
 }

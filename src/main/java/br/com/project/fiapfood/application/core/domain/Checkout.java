@@ -12,5 +12,5 @@ import lombok.Setter;
 public class Checkout {
 
     private Long ordem;
-    private Long idPedido;
+    private Long orderId;
 }

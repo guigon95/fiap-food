@@ -11,5 +11,8 @@ public interface ProductServicePort {
     void deleteProduct(UUID id);
     Product updateProduct(Product product);
     Product findById(UUID id);
-    List<Product> getProductsByCategory(Category category);
+    List<Product> findProductsByCategory(Category category);
+    List<Product> findByCategoryAndStatusActive(Category category);
+    Product findByIdAndStatusActive(UUID id);
+
 }

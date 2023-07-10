@@ -44,8 +44,19 @@ public class ProductAdapter implements ProductPort {
     }
 
     @Override
-    public List<Product> getByCategory(Category category) {
+    public List<Product> findByCategory(Category category) {
         return productMapper.productEntitiesToProducts(productRepository.findAllByCategory(category));
+    }
+
+    @Override
+    public List<Product> findByCategoryAndStatusActive(Category category) {
+        return productMapper.productEntitiesToProducts(productRepository.findAllByCategoryAndStatus(category, Status.ACTIVE));
+    }
+
+    @Override
+    public Product findByIdAndStatusActive(UUID id) {
+        return productMapper.productEntityToProduct(productRepository.findByIdAndStatus(id, Status.ACTIVE)
+                .orElseThrow(() -> new ObjectNotFoundException("Product not found id: "+id)));
     }
 
     @Override

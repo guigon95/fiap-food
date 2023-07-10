@@ -6,7 +6,6 @@ import br.com.project.fiapfood.adapters.outbound.repository.CheckoutRepository;
 import br.com.project.fiapfood.application.core.domain.Checkout;
 import br.com.project.fiapfood.application.port.out.CheckoutPort;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -23,7 +22,7 @@ public class CheckoutAdapter implements CheckoutPort {
     public Checkout save(Checkout checkout) {
         var checkoutEntity = checkoutMapper.checkouToCheckoutEntity(checkout);
 
-        Optional<CheckoutEntity> optional = checkoutRepository.findByIdPedido(checkoutEntity.getIdPedido());
+        Optional<CheckoutEntity> optional = checkoutRepository.findByOrderId(checkoutEntity.getOrderId());
         if(optional.isPresent())
             return checkoutMapper.checkoutEntityToCheckout(optional.get());
 

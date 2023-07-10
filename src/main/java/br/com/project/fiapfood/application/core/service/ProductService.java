@@ -39,7 +39,16 @@ public class ProductService implements ProductServicePort {
     }
 
     @Override
-    public List<Product> getProductsByCategory(Category category) {
-        return this.productPort.getByCategory(category);
+    public List<Product> findProductsByCategory(Category category) {
+        return this.productPort.findByCategory(category);
+    }
+
+    @Override
+    public List<Product> findByCategoryAndStatusActive(Category category) {
+        return this.productPort.findByCategoryAndStatusActive(category);
+    }
+
+    public Product findByIdAndStatusActive(UUID id ) {
+        return this.productPort.findByIdAndStatusActive(id);
     }
 }

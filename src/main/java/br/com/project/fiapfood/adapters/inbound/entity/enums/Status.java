@@ -2,7 +2,7 @@ package br.com.project.fiapfood.adapters.inbound.entity.enums;
 
 
 import br.com.project.fiapfood.adapters.inbound.response.exceptions.ErrorMessage;
-import br.com.project.fiapfood.adapters.inbound.response.exceptions.InvalidFieldException;
+import br.com.project.fiapfood.application.core.exception.InvalidFieldException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.util.List;
