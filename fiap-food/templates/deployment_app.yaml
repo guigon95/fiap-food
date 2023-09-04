@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    meta.helm.sh/release-name: fiap-food
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2023-09-03T21:05:32Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: fiap-food
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: fiap-food-app
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: fiap-food-0.1.0
+  name: fiap-food-deployment
+  namespace: default
+  resourceVersion: "25704"
+  uid: 7365405b-caf1-4908-b113-377be282bc25
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: fiap-food
+      app.kubernetes.io/name: fiap-food-app
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: fiap-food
+        app.kubernetes.io/name: fiap-food-app
+    spec:
+      containers:
+      - env:
+        - name: DATASOUECE_URL
+          value: jdbc:mysql://172.24.144.1:3306/fiapfoodt
+        - name: DATASOURCE_USER
+          value: root
+        - name: DATASOURCE_PWD
+          value: password
+        - name: PROFILE_NAME
+          value: local
+        image: guigon/fiap-food-app:latest
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: fiap-food
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP

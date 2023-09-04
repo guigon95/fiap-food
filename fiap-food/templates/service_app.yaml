@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    meta.helm.sh/release-name: fiap-food
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2023-09-03T22:06:14Z"
+  labels:
+    app.kubernetes.io/instance: fiap-food
+    app.kubernetes.io/name: fiap-food-app
+    app.kubernetes.io/version: 1.16.0
+    helm.sh/chart: fiap-food-0.1.0
+  name: fiap-food-service-lb
+  namespace: default
+  resourceVersion: "30089"
+  uid: 7d2cb896-d564-48cf-be8b-835e21ec46f7
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.104.206.239
+  clusterIPs:
+  - 10.104.206.239
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 30620
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/instance: fiap-food
+    app.kubernetes.io/name: fiap-food-app
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - hostname: localhost
