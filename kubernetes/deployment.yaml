@@ -20,7 +20,7 @@ spec:
           env:
             - name: PROFILE_NAME
               value: 'local'
-            - name: DATASOURCE_URL
+            - name: DATASOUECE_URL
               valueFrom:
                 secretKeyRef:
                   name: database-secret
