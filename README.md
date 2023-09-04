@@ -69,7 +69,7 @@ SQL file `src/main/resources/scripts/population-db.sql`
 ```
 4 - Create the other resurces
 ```
-    kubectl apply -f /kubernetes/deployment.yaml
     kubectl apply -f /kubernetes/service.yaml
+    kubectl apply -f /kubernetes/deployment.yaml
 ```
 
