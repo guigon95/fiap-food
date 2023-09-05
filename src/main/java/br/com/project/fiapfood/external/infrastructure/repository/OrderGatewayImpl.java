@@ -3,9 +3,9 @@ package br.com.project.fiapfood.external.infrastructure.repository;
 import br.com.project.fiapfood.adapter.gateway.ItemOrderGateway;
 import br.com.project.fiapfood.adapter.gateway.OrderGateway;
 import br.com.project.fiapfood.adapter.mapper.OrderMapper;
-import br.com.project.fiapfood.external.infrastructure.repository.JPA.OrderRepository;
 import br.com.project.fiapfood.domain.model.ItemOrder;
 import br.com.project.fiapfood.domain.model.Order;
+import br.com.project.fiapfood.external.infrastructure.repository.JPA.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,10 +35,12 @@ public class OrderGatewayImpl implements OrderGateway {
                         .orElse(null));    }
 
     @Override
+    @Transactional
     public Order save(Order order) {
         var orderEntity = orderMapper.orderToOrderEntity(order);
-        itemOrderGateway.saveAll(order.getItemOrder());
-        return orderMapper.orderEntityToOrder(orderRepository.save(orderEntity));
+        Order orderSaved = orderMapper.orderEntityToOrder(orderRepository.save(orderEntity));
+        addItemOrder(order.getItemOrder(), orderSaved);
+        return orderSaved;
     }
 
 

@@ -1,8 +1,6 @@
 package br.com.project.fiapfood.application.usecase;
 
 import br.com.project.fiapfood.adapter.gateway.OrderGateway;
-import br.com.project.fiapfood.adapter.mapper.OrderMapper;
-import br.com.project.fiapfood.external.infrastructure.repository.JPA.OrderRepository;
 import br.com.project.fiapfood.domain.model.Order;
 import br.com.project.fiapfood.domain.usecase.OrderUseCase;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderUseCaseImpl implements OrderUseCase {
 
-    private final OrderRepository orderRepository;
-
-    private final OrderMapper orderMapper;
     private final OrderGateway orderGateway;
 
     @Override
