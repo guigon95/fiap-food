@@ -52,3 +52,24 @@ Link to import sql file:
 SQL file `src/main/resources/scripts/population-db.sql`
 
 ![img.png](docs/adminer-import.png)
+
+## Start application with Kubernetes
+
+1 - Start database with Docker
+
+```
+    docker-compose up db -d
+```
+
+2 - Modify secret.yaml file with database credentials
+    
+3 - Create the secret object with the secret.yaml file
+```
+    kubectl apply -f /kubernetes/secret.yaml
+```
+4 - Create the other resurces
+```
+    kubectl apply -f /kubernetes/service.yaml
+    kubectl apply -f /kubernetes/deployment.yaml
+```
+
