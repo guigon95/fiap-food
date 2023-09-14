@@ -1,6 +1,6 @@
 package br.com.project.fiapfood.application.usecase;
 
-import br.com.project.fiapfood.adapter.gateway.ClientGateway;
+import br.com.project.fiapfood.external.gateway.ClientGateway;
 import br.com.project.fiapfood.application.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.domain.model.Client;
 import br.com.project.fiapfood.domain.usecase.ClientUseCase;

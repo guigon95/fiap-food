@@ -1,7 +1,7 @@
 package br.com.project.fiapfood.domain.enums;
 
 
-import br.com.project.fiapfood.adapter.dto.response.exceptions.ErrorMessage;
+import br.com.project.fiapfood.adapters.dto.response.exceptions.ErrorMessage;
 import br.com.project.fiapfood.application.exception.InvalidFieldException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 

@@ -1,6 +1,6 @@
 package br.com.project.fiapfood.application.usecase;
 
-import br.com.project.fiapfood.adapter.gateway.ItemOrderGateway;
+import br.com.project.fiapfood.external.gateway.ItemOrderGateway;
 import br.com.project.fiapfood.domain.model.ItemOrder;
 import br.com.project.fiapfood.domain.usecase.ItemOrderUseCase;
 import lombok.RequiredArgsConstructor;
