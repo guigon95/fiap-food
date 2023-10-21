@@ -1,10 +1,10 @@
 package br.com.project.fiapfood.adapter.controller;
 
+import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.domain.enums.Category;
 import br.com.project.fiapfood.adapter.dto.request.ProductRequest;
 import br.com.project.fiapfood.adapter.dto.response.ProductResponse;
 import br.com.project.fiapfood.adapter.mapper.ProductMapper;
-import br.com.project.fiapfood.application.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.domain.usecase.ProductUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
