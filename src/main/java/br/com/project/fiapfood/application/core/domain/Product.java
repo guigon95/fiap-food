@@ -1,7 +1,7 @@
 package br.com.project.fiapfood.application.core.domain;
 
-import br.com.project.fiapfood.adapters.inbound.entity.enums.Category;
-import br.com.project.fiapfood.adapters.inbound.entity.enums.Status;
+import br.com.project.fiapfood.domain.enums.Category;
+import br.com.project.fiapfood.domain.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

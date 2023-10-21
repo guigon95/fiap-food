@@ -1,9 +1,9 @@
 package br.com.project.fiapfood.application.usecase;
 
 import br.com.project.fiapfood.adapter.gateway.ProductGateway;
+import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.domain.enums.Category;
 import br.com.project.fiapfood.domain.enums.Status;
-import br.com.project.fiapfood.application.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.domain.model.Product;
 import br.com.project.fiapfood.domain.usecase.ProductUseCase;
 import lombok.RequiredArgsConstructor;

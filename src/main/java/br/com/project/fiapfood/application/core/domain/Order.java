@@ -1,6 +1,6 @@
 package br.com.project.fiapfood.application.core.domain;
 
-import br.com.project.fiapfood.adapters.inbound.entity.enums.OrderStatus;
+import br.com.project.fiapfood.domain.enums.OrderStatus;
 import lombok.*;
 
 import java.util.List;

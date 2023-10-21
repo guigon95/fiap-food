@@ -1,7 +1,7 @@
 package br.com.project.fiapfood.external.api;
 
 import br.com.project.fiapfood.adapter.dto.response.exceptions.ErrorMessage;
-import br.com.project.fiapfood.application.exception.InvalidFieldException;
+import br.com.project.fiapfood.application.core.exception.InvalidFieldException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import jakarta.persistence.EntityNotFoundException;
