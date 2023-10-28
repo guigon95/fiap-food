@@ -13,14 +13,14 @@ import java.util.List;
 @Data
 public class OrderResponse {
 
-    public Long id;
+    private Long id;
 
-    public List<ItemOrderResponse> itemOrder;
+    private List<ItemOrderResponse> itemOrder;
 
     @Enumerated(EnumType.STRING)
-    public OrderStatus orderStatus;
+    private OrderStatus orderStatus;
 
-    public ClientResponse client;
+    private ClientResponse client;
 
-    public LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 }
