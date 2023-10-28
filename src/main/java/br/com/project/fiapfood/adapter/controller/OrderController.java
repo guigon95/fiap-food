@@ -1,8 +1,10 @@
 package br.com.project.fiapfood.adapter.controller;
 
 import br.com.project.fiapfood.adapter.dto.request.OrderRequest;
+import br.com.project.fiapfood.adapter.dto.request.OrderStatusRequest;
 import br.com.project.fiapfood.adapter.dto.response.OrderResponse;
 import br.com.project.fiapfood.adapter.mapper.OrderMapper;
+import br.com.project.fiapfood.domain.enums.OrderStatus;
 import br.com.project.fiapfood.domain.usecase.OrderUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,7 @@ public class OrderController {
     public ResponseEntity<List<OrderResponse>> findAllOrders(){
 
         return ResponseEntity.ok(
-                orderUseCase.findAll()
+                orderUseCase.findByOrderStatusNotOrderByCreatedAt()
                 .stream()
                 .map(orderMapper::orderToOrderResponse).collect(Collectors.toList()));
     }
@@ -36,6 +38,7 @@ public class OrderController {
 
     public ResponseEntity<OrderResponse> saveOrder(OrderRequest orderRequest){
         var order = orderMapper.orderRequestToOrder(orderRequest);
+        order.setOrderStatus(OrderStatus.RECEIVED);
         return ResponseEntity.ok(orderMapper.orderToOrderResponse(orderUseCase.createOrder(order)));
     }
 
@@ -46,6 +49,16 @@ public class OrderController {
         order.setId(id);
 
         var updatedOrder = orderUseCase.updateOrder(order);
+        return ResponseEntity.ok(orderMapper.orderToOrderResponse(updatedOrder));
+    }
+
+    public ResponseEntity<OrderResponse> updateOrderStatus(Long id, OrderStatusRequest orderStatusRequest){
+
+        var order = orderUseCase.findById(id);
+
+        order.setOrderStatus(orderStatusRequest.getOrderStatus());
+
+        var updatedOrder = orderUseCase.updateStatus(order);
         return ResponseEntity.ok(orderMapper.orderToOrderResponse(updatedOrder));
     }
 }

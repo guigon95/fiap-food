@@ -8,10 +8,14 @@ public interface OrderUseCase {
 
     public List<Order> findAll();
 
+    public List<Order> findByOrderStatusNotOrderByCreatedAt();
+
     public Order findById(Long id);
 
     Order createOrder(Order order);
 
     Order updateOrder(Order order);
+
+    Order updateStatus(Order order);
 
 }

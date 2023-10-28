@@ -6,6 +6,7 @@ import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,4 +21,6 @@ public class OrderResponse {
     public OrderStatus orderStatus;
 
     public ClientResponse client;
+
+    public LocalDateTime createdAt;
 }

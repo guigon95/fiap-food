@@ -20,6 +20,11 @@ public class OrderUseCaseImpl implements OrderUseCase {
     }
 
     @Override
+    public List<Order> findByOrderStatusNotOrderByCreatedAt() {
+        return orderGateway.findByOrderStatusNotOrderByCreatedAt();
+    }
+
+    @Override
     public Order findById(Long id) {
         return orderGateway.findById(id);
     }
@@ -32,5 +37,10 @@ public class OrderUseCaseImpl implements OrderUseCase {
     @Override
     public Order updateOrder(Order order) {
         return orderGateway.update(order);
+    }
+
+    @Override
+    public Order updateStatus(Order order) {
+        return orderGateway.updateStatus(order);
     }
 }
