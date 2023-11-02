@@ -41,8 +41,7 @@ public class OrderGatewayImpl implements OrderGateway {
     @Override
     public Order findById(Long id) {
         return orderMapper.orderEntityToOrder(
-                orderRepository.findById(id)
-                        .orElseThrow(() -> new ObjectNotFoundException(Order.class.toString())));    }
+                orderRepository.findById(id).orElse(null));    }
 
     @Override
     @Transactional
