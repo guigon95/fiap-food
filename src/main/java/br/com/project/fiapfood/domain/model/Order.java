@@ -3,6 +3,7 @@ package br.com.project.fiapfood.domain.model;
 import br.com.project.fiapfood.domain.enums.OrderStatus;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,4 +19,6 @@ public class Order {
     private OrderStatus orderStatus;
 
     private Client client;
+
+    private LocalDateTime createdAt;
 }
