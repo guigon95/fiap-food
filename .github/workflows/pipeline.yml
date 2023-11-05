@@ -112,11 +112,13 @@ jobs:
         env:
           ECS_TASK_DEFINITION: fiapfood
           CONTAINER_NAME: containerapi
+          ECR_REGISTRY: ${{ secrets.AMAZON_CONTAINER_REGISTRY }}
+          ECR_REPOSITORY: fiapfood
         uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ steps.build-image.outputs.image }}
+          image: $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
       - name: Deploy Amazon ECS task definition
         env:
