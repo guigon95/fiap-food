@@ -31,6 +31,9 @@ public class OrderEntity {
     @JoinColumn(name = "client_id")
     private ClientEntity client;
 
+    @OneToOne(mappedBy = "order")
+    private PaymentEntity payment;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 }
