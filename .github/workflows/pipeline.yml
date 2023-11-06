@@ -122,7 +122,7 @@ jobs:
 
       - name: Deploy Amazon ECS task definition
         env:
-          ECS_SERVICE: service-fiapfood
+          ECS_SERVICE: services-fiapfood
         uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
