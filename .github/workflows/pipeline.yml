@@ -118,7 +118,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: ${{ env.CONTAINER_NAME }}
-          image: $ECR_REGISTRY/$ECR_REPOSITORY:latest
+          image: ${{ secrets.AMAZON_CONTAINER_REGISTRY }}/fiapfood:latest
 
       - name: Deploy Amazon ECS task definition
         env:
