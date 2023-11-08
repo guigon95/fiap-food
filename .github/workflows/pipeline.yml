@@ -112,8 +112,6 @@ jobs:
         id: task-def
         env:
           CONTAINER_NAME: containerapi
-          ECR_REGISTRY: ${{ secrets.AMAZON_CONTAINER_REGISTRY }}
-          ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
         with:
           task-definition: task-definition.json
