@@ -128,5 +128,3 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: false
 
-
-
