@@ -13,7 +13,7 @@ on:
 
 env:
   ECS_CLUSTER: test-cluster
-  ECS_TASK_DEFINITION: fiapfood
+  ECR_REPOSITORY: fiapfood
 
 jobs:
 
@@ -83,7 +83,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ secrets.AMAZON_CONTAINER_REGISTRY }}
-          ECR_REPOSITORY: fiapfood
+          ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
           IMAGE_TAG: latest
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -106,19 +106,19 @@ jobs:
 
       - name: Download task definition
         run: |
-          aws ecs describe-task-definition --task-definition fiapfood --query taskDefinition > task-definition.json
+          aws ecs describe-task-definition --task-definition fiapfood:1 --query taskDefinition > task-definition.json
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         env:
           CONTAINER_NAME: containerapi
           ECR_REGISTRY: ${{ secrets.AMAZON_CONTAINER_REGISTRY }}
-          ECR_REPOSITORY: fiapfood
+          ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
         with:
           task-definition: task-definition.json
           container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ secrets.AMAZON_CONTAINER_REGISTRY }}/fiapfood:latest
+          image: ${{ secrets.AMAZON_CONTAINER_REGISTRY }}/$ECR_REPOSITORY:latest
 
       - name: Deploy Amazon ECS task definition
         env:
