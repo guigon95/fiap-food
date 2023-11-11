@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -29,4 +30,7 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientEntity client;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 }

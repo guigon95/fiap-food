@@ -2,6 +2,7 @@ package br.com.project.fiapfood.external.api;
 
 import br.com.project.fiapfood.adapter.controller.OrderController;
 import br.com.project.fiapfood.adapter.dto.request.OrderRequest;
+import br.com.project.fiapfood.adapter.dto.request.OrderStatusRequest;
 import br.com.project.fiapfood.adapter.dto.response.OrderResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -82,5 +83,19 @@ public class OrderApi {
     @PutMapping("/{id}")
     public ResponseEntity<OrderResponse> updateOrder(@PathVariable @Schema(description = "order id") Long id, @Valid @RequestBody OrderRequest orderRequest) {
         return orderController.updateOrder(id, orderRequest);
+    }
+
+    @Operation(summary = "update order status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Order order updated",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OrderResponse.class))}),
+            @ApiResponse(responseCode = "4xx", description = "Invalid data",
+                    content = @Content),
+            @ApiResponse(responseCode = "5xx", description = "Internal server error",
+                    content = @Content)})
+    @PatchMapping("/{id}")
+    public ResponseEntity<OrderResponse> updateStatusOrder(@PathVariable @Schema(description = "order id") Long id, @Valid @RequestBody OrderStatusRequest orderRequest) {
+        return orderController.updateOrderStatus(id, orderRequest);
     }
 }

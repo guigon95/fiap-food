@@ -1,6 +1,7 @@
 package br.com.project.fiapfood.application.usecase;
 
 import br.com.project.fiapfood.adapter.gateway.OrderGateway;
+import br.com.project.fiapfood.application.core.exception.ObjectNotFoundException;
 import br.com.project.fiapfood.domain.model.Order;
 import br.com.project.fiapfood.domain.usecase.OrderUseCase;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,19 @@ public class OrderUseCaseImpl implements OrderUseCase {
     }
 
     @Override
+    public List<Order> findByOrderStatusNotOrderByCreatedAt() {
+        return orderGateway.findByOrderStatusNotOrderByCreatedAt();
+    }
+
+    @Override
     public Order findById(Long id) {
-        return orderGateway.findById(id);
+
+        Order order = orderGateway.findById(id);
+        if(order == null)
+            throw new ObjectNotFoundException("Order not found id: "+id);
+
+        return order;
+
     }
 
     @Override
@@ -32,5 +44,10 @@ public class OrderUseCaseImpl implements OrderUseCase {
     @Override
     public Order updateOrder(Order order) {
         return orderGateway.update(order);
+    }
+
+    @Override
+    public Order updateStatus(Order order) {
+        return orderGateway.updateStatus(order);
     }
 }

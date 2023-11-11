@@ -6,18 +6,21 @@ import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
 @Data
 public class OrderResponse {
 
-    public Long id;
+    private Long id;
 
-    public List<ItemOrderResponse> itemOrder;
+    private List<ItemOrderResponse> itemOrder;
 
     @Enumerated(EnumType.STRING)
-    public OrderStatus orderStatus;
+    private OrderStatus orderStatus;
 
-    public ClientResponse client;
+    private ClientResponse client;
+
+    private LocalDateTime createdAt;
 }
