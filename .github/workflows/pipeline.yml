@@ -6,13 +6,13 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Fiap Food EKS pipeline
+name: Fiap Food ECS pipeline
 
 on:
   push:
 
 env:
-  ECS_CLUSTER: test-cluster
+  ECS_CLUSTER: fiap-food-cluster
   ECR_REPOSITORY: fiap-food
 
 jobs:
@@ -111,7 +111,7 @@ jobs:
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         env:
-          CONTAINER_NAME: containerapi
+          CONTAINER_NAME: fiap-food-task
         uses: aws-actions/amazon-ecs-render-task-definition@c804dfbdd57f713b6c079302a4c01db7017a36fc
         with:
           task-definition: task-definition.json
@@ -120,7 +120,7 @@ jobs:
 
       - name: Deploy Amazon ECS task definition
         env:
-          ECS_SERVICE: services-fiapfood
+          ECS_SERVICE: fiap-food-service
         uses: aws-actions/amazon-ecs-deploy-task-definition@df9643053eda01f169e64a0e60233aacca83799a
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
