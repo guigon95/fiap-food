@@ -22,5 +22,7 @@ public class OrderResponse {
 
     private ClientResponse client;
 
+    private PaymentResponse paymentResponse;
+
     private LocalDateTime createdAt;
 }

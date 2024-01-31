@@ -1,8 +1,6 @@
 package br.com.project.fiapfood.external.infrastructure.entity;
 
-
-import br.com.project.fiapfood.domain.enums.Category;
-import br.com.project.fiapfood.domain.enums.Status;
+import br.com.project.fiapfood.domain.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,16 +20,13 @@ public class PaymentEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private String flagCard;
+    @OneToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private OrderEntity order;
+
+    private BigDecimal paymentValue;
 
     @Enumerated(EnumType.STRING)
-    private Category category;
-
-
-    private String description;
-    private BigDecimal price;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private PaymentStatus status;
 
 }
